@@ -11,10 +11,10 @@
         "virtualization-type": "hvm",
         "name": "amzn2-ami-hvm-2.0.2021*-x86_64-gp2"
       },
-      "owners": ["716514200744"],
+      "owners": ["137112412989"],
       "most_recent": true
     },
-    "instance_type": "t2.medium",
+    "instance_type": "m5a.xlarge",
     "ssh_username": "ec2-user",
     "ssh_handshake_attempts": "2000",
     "ami_name": "packer-linux-demo-{{timestamp}}",
