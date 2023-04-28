@@ -1,0 +1,35 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-west-2",
+    "source_ami_filter": {
+      "filters": {
+        "architecture": "x86_64",
+        "root-device-type": "ebs",
+        "virtualization-type": "hvm",
+        "name": "amzn2-ami-hvm-2.0.2021*-x86_64-gp2"
+      },
+      "owners": ["716514200744"],
+      "most_recent": true
+    },
+    "instance_type": "t2.medium",
+    "ssh_username": "ec2-user",
+    "ssh_handshake_attempts": "2000",
+    "ami_name": "packer-linux-demo-{{timestamp}}",
+    "run_tags": {
+      "Org": "Engineering"
+    },
+    "tags": {
+      "Name": "packer-linux-demo-{{timestamp}}",
+      "Org": "Engineering"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell-local",
+    "inline": [
+      "echo 'Hello, World!'"
+    ]
+  }]
+}
