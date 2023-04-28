@@ -1,0 +1,13 @@
+---
+version: 0.2
+
+env:
+  parameter-store:
+    AWS_ACCESS_KEY: "/golden-image-linux/example/aws_access_key_id"
+    AWS_SECRET_KEY: "/golden-image-linux/example/aws_secret_access_key"
+    
+phases:
+  build:
+    commands:
+      - chmod a+x *.sh
+      - ./main.sh
