@@ -48,7 +48,7 @@ phases:
   build:
     commands:
       - chmod a+x *.sh
-      - ./main.sh
+      - NEW_TAG=$NEW_TAG ./main.sh
 
 artifacts:
   files:
