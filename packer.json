@@ -1,9 +1,14 @@
 {
+  "variables": {
+    "region": "us-west-2",
+    "ami_tag": ""
+  },
   "builders": [{
     "type": "amazon-ebs",
+    "name": "firstrun-linux",
     "access_key": "{{user `aws_access_key`}}",
     "secret_key": "{{user `aws_secret_key`}}",
-    "region": "us-west-2",
+    "region": "{{user `region`}}",
     "source_ami_filter": {
       "filters": {
         "architecture": "x86_64",
@@ -17,19 +22,27 @@
     "instance_type": "m5a.xlarge",
     "ssh_username": "ec2-user",
     "ssh_handshake_attempts": "2000",
-    "ami_name": "packer-linux-demo-{{timestamp}}",
+    "ami_name": "golden-ami-amazon-linux-2023 {{user `ami_tag`}}",
     "run_tags": {
       "Org": "Engineering"
     },
     "tags": {
-      "Name": "packer-linux-demo-{{timestamp}}",
+      "Name": "golden-ami-amazon-linux-2023 {{user `ami_tag`}}",
       "Org": "Engineering"
     }
   }],
   "provisioners": [{
-    "type": "shell-local",
+    "type": "shell",
     "inline": [
-      "echo 'Hello, World!'"
+      "sudo yum update -y",
+      "sudo yum install -y git",
+      "sudo yum install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm",
+      "sudo yum install -y openoffice",
+      "sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+      "sudo systemctl enable amazon-ssm-agent",
+      "sudo systemctl start amazon-ssm-agent",
+      "sudo yum install -y awscli",
+      "aws --version"
     ]
   }]
 }
