@@ -27,14 +27,22 @@
       "Org": "Engineering"
     },
     "tags": {
-      "Name": "packer-linux-demo-{{timestamp}}",
+      "Name": "golden-ami-amazon-linux-2023 {{user `ami_tag`}}",
       "Org": "Engineering"
     }
   }],
   "provisioners": [{
-    "type": "shell-local",
+    "type": "shell",
     "inline": [
-      "echo 'Hello, World!'"
+      "sudo yum update -y",
+      "sudo yum install -y git",
+      "sudo yum install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm",
+      "sudo yum install -y openoffice",
+      "sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+      "sudo systemctl enable amazon-ssm-agent",
+      "sudo systemctl start amazon-ssm-agent",
+      "sudo yum install -y awscli",
+      "aws --version"
     ]
   }]
 }
