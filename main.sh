@@ -9,4 +9,4 @@ yum -y install packer
 
 # run packer
 echo "- Running packer"
-/usr/bin/packer build packer.json
+/usr/bin/packer build -var "ami_tag=${NEW_TAG}" packer.json
