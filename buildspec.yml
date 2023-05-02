@@ -30,7 +30,7 @@ phases:
       - git checkout main
       - git pull origin main
       - echo "Fetching the latest tag and incrementing the tag number..."
-      - LATEST_TAG=$(git describe --tags --abbrev=0)
+      - LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "GA-00")
       - NEW_TAG_NUMBER=$((10#${LATEST_TAG:3} + 1))
       - NEW_TAG="GA-$(printf "%02d" $NEW_TAG_NUMBER)"
       - TAG_MESSAGE="Release $NEW_TAG"
