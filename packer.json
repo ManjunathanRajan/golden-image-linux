@@ -1,9 +1,14 @@
 {
+  "variables": {
+    "region": "us-west-2",
+    "ami_tag": ""
+  },
   "builders": [{
     "type": "amazon-ebs",
+    "name": "firstrun-linux",
     "access_key": "{{user `aws_access_key`}}",
     "secret_key": "{{user `aws_secret_key`}}",
-    "region": "us-west-2",
+    "region": "{{user `region`}}",
     "source_ami_filter": {
       "filters": {
         "architecture": "x86_64",
@@ -17,7 +22,7 @@
     "instance_type": "m5a.xlarge",
     "ssh_username": "ec2-user",
     "ssh_handshake_attempts": "2000",
-    "ami_name": "packer-linux-demo-{{timestamp}}",
+    "ami_name": "golden-ami-amazon-linux-2023 {{user `ami_tag`}}",
     "run_tags": {
       "Org": "Engineering"
     },
